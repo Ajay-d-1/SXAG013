@@ -1,15 +1,26 @@
 import os
+import streamlit as st
 from dotenv import load_dotenv
 
-# Load .env file only if it exists (safe for Streamlit deployment)
+# Load .env for local development
 env_path = os.path.join(os.path.dirname(__file__), '.env')
 if os.path.exists(env_path):
     load_dotenv(env_path)
 else:
-    load_dotenv()  # Try to load from environment anyway
+    load_dotenv()
 
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")  # Keep for backwards compatibility
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") or os.getenv("GEMINI_API_KEY")
+# ---- GROQ API KEY HANDLING ----
+def get_groq_key():
+    try:
+        # For Streamlit Cloud
+        return st.secrets["GROQ_API_KEY"]
+    except Exception:
+        # For local (.env)
+        return os.getenv("GROQ_API_KEY")
+
+GROQ_API_KEY = get_groq_key()
+
+# ---- CONFIG SETTINGS ----
 CONFIDENCE_THRESHOLD = 0.80
 MAX_DEPTH_FAST = 2
 MAX_DEPTH_DEEP = 4

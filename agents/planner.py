@@ -7,10 +7,13 @@ import json
 
 class PlannerAgent:
     def __init__(self):
+        if not GROQ_API_KEY:
+            raise ValueError("❌ GROQ_API_KEY is missing. Check your .env or Streamlit secrets.")
+        
         self.client = Groq(api_key=GROQ_API_KEY)
 
     def plan(self, topic: str) -> dict:
-        # Check for demo topic first
+        # ---- DEMO MODE CHECK ----
         demo_key = get_demo_topic(topic)
         if demo_key:
             print(f"[DEMO MODE] Using pre-loaded plan for: {demo_key}")
@@ -21,6 +24,8 @@ class PlannerAgent:
                     "search_queries": [demo_key],
                     "rationale": "Demo mode: using pre-loaded research questions"
                 }
+
+        # ---- REAL API CALL ----
         try:
             completion = self.client.chat.completions.create(
                 model=MODEL_NAME,
@@ -30,11 +35,19 @@ class PlannerAgent:
                 ],
                 response_format={"type": "json_object"}
             )
+
             text = completion.choices[0].message.content.strip()
-            text = text.removeprefix("```json").removesuffix("```").strip()
+
+            # Clean markdown formatting if present
+            if text.startswith("```"):
+                text = text.replace("```json", "").replace("```", "").strip()
+
             return json.loads(text)
+
         except Exception as e:
-            print(f"Planner error: {e}")
+            print(f"⚠️ Planner error: {e}")
+
+            # ---- FALLBACK SAFE RESPONSE ----
             return {
                 "sub_questions": [
                     f"What methods are used in {topic}?",
@@ -50,10 +63,11 @@ class PlannerAgent:
                     f"{topic} recent advances 2024",
                     f"{topic} applications"
                 ],
-                "rationale": "Default decomposition"
+                "rationale": "Fallback due to API error"
             }
 
 
+# ---- LOCAL TEST ----
 if __name__ == "__main__":
     agent = PlannerAgent()
     result = agent.plan("AI in Rural Healthcare")
