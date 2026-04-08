@@ -1,14 +1,9 @@
 from groq import Groq
 import time
 import json
-import sys
-import os
 
 from config import GROQ_API_KEY, MODEL_NAME
 from utils.prompts import CRITIQUE_PROMPT, CONTRADICTION_PROMPT
-
-# Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from demo_data import get_demo_topic, get_demo_data, DEMO_TOPICS
 
 

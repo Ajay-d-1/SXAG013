@@ -1,10 +1,6 @@
 import requests
 import time
-import sys
-import os
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from demo_data import get_demo_topic, get_demo_data
 
 

@@ -1,16 +1,22 @@
 import sqlite3
 import json
 import uuid
+import os
 from statistics import mean
 from groq import Groq
 from config import GROQ_API_KEY, MODEL_NAME
 from utils.prompts import LITERATURE_REVIEW_PROMPT, FAST_SUMMARY_PROMPT
+from demo_data import get_demo_topic, get_demo_data
+
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class ArchivistAgent:
     def __init__(self):
         self.client = Groq(api_key=GROQ_API_KEY)
-        self.conn = sqlite3.connect("data/scholar_pulse.db", check_same_thread=False)
+        db_path = os.path.join(_BASE_DIR, "data", "scholar_pulse.db")
+        os.makedirs(os.path.dirname(db_path), exist_ok=True)
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self._init_db()
 
     def _init_db(self):
@@ -156,7 +162,6 @@ Average credibility: {avg_credibility:.1f}/10
             })
 
         # Demo mode interception
-        from demo_data import get_demo_topic, get_demo_data
         demo_topic = get_demo_topic(topic)
         if demo_topic:
             demo_data = get_demo_data(demo_topic)

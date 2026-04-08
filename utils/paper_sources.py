@@ -6,11 +6,9 @@ All free APIs with generous limits.
 
 import requests
 import time
-import sys
-import os
+import re
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from demo_data import get_demo_topic, get_demo_data
 
 OPENALEX_EMAIL = "scholarpulse@research.ai"
@@ -68,7 +66,6 @@ def _normalize_crossref(item: dict) -> dict:
     title = title_list[0] if title_list else ""
     abstract = item.get("abstract", "") or ""
     # CrossRef sometimes returns HTML in abstracts
-    import re
     abstract = re.sub(r"<[^>]+>", "", abstract).strip()
 
     authors = []

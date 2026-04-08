@@ -5,6 +5,8 @@ Uses custom HTML/JS with vis.js for beautiful, immersive visualizations.
 import json
 import os
 
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 class CartographerAgent:
 
@@ -21,7 +23,8 @@ class CartographerAgent:
 
     def build_graph(self, papers: list, critiques: list, contradictions: list) -> str:
         """Build a D3/vis-style knowledge graph as a self-contained HTML file."""
-        os.makedirs("assets", exist_ok=True)
+        assets_dir = os.path.join(_BASE_DIR, "assets")
+        os.makedirs(assets_dir, exist_ok=True)
 
         nodes = []
         edges = []
@@ -138,7 +141,7 @@ class CartographerAgent:
                         })
 
         html = self._generate_graph_html(nodes, edges)
-        filepath = "assets/graph.html"
+        filepath = os.path.join(_BASE_DIR, "assets", "graph.html")
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(html)
         return filepath
@@ -204,7 +207,8 @@ var network = new vis.Network(container, data, options);
 
     def build_mindmap(self, topic, sub_questions, papers, critiques) -> str:
         """Build a hierarchical mind map as HTML."""
-        os.makedirs("assets", exist_ok=True)
+        assets_dir = os.path.join(_BASE_DIR, "assets")
+        os.makedirs(assets_dir, exist_ok=True)
 
         nodes = []
         edges = []
@@ -298,7 +302,7 @@ var network = new vis.Network(container, data, options);
             })
 
         html = self._generate_mindmap_html(nodes, edges)
-        filepath = "assets/mindmap.html"
+        filepath = os.path.join(_BASE_DIR, "assets", "mindmap.html")
         with open(filepath, "w", encoding="utf-8") as f:
             f.write(html)
         return filepath
