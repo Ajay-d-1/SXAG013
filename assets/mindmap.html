@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"></script>
+<style>
+  body { margin:0; padding:0; background:#0b0f19; overflow:hidden; font-family:'Outfit',sans-serif; }
+  #mindmap { width:100%; height:100vh; }
+  .mm-legend {
+    position:absolute; bottom:12px; right:12px; background:rgba(15,23,42,0.9);
+    border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:12px 16px;
+    color:#94a3b8; font-size:12px; backdrop-filter:blur(8px);
+  }
+  .mm-item { display:flex; align-items:center; gap:8px; margin:3px 0; }
+  .mm-dot { width:10px; height:10px; border-radius:3px; }
+</style>
+</head><body>
+<div id="mindmap"></div>
+<div class="mm-legend">
+  <b style="color:#e2e8f0;">Mind Map</b>
+  <div class="mm-item"><div class="mm-dot" style="background:#3b82f6;"></div> Research Topic</div>
+  <div class="mm-item"><div class="mm-dot" style="background:#f59e0b;"></div> Sub-questions</div>
+  <div class="mm-item"><div class="mm-dot" style="background:#10b981;"></div> High credibility (7-10)</div>
+  <div class="mm-item"><div class="mm-dot" style="background:#ef4444;"></div> Low credibility (0-3)</div>
+</div>
+<script>
+var nodes = new vis.DataSet([{"id": "root", "label": "CRISPR gene editing", "size": 35, "color": {"background": "#3b82f6", "border": "#60a5fa"}, "shape": "box", "font": {"color": "#ffffff", "size": 16, "face": "Outfit, sans-serif", "bold": true}, "borderWidth": 3, "shadow": true, "level": 0, "margin": 14}, {"id": "sq_0", "label": "What methodologies are currently being explored to...", "size": 22, "color": {"background": "#f59e0b", "border": "#f59e0b"}, "shape": "box", "font": {"color": "#ffffff", "size": 13, "face": "Outfit, sans-serif"}, "borderWidth": 2, "shadow": true, "level": 1, "margin": 10, "title": "What methodologies are currently being explored to improve the efficiency and specificity of CRISPR gene editing?"}, {"id": "sq_1", "label": "What are the significant empirical gaps in our und...", "size": 22, "color": {"background": "#10b981", "border": "#10b981"}, "shape": "box", "font": {"color": "#ffffff", "size": 13, "face": "Outfit, sans-serif"}, "borderWidth": 2, "shadow": true, "level": 1, "margin": 10, "title": "What are the significant empirical gaps in our understanding of CRISPR's off-target effects and how can they be addressed?"}, {"id": "sq_2", "label": "How can CRISPR gene editing be applied to treat ge...", "size": 22, "color": {"background": "#8b5cf6", "border": "#8b5cf6"}, "shape": "box", "font": {"color": "#ffffff", "size": 13, "face": "Outfit, sans-serif"}, "borderWidth": 2, "shadow": true, "level": 1, "margin": 10, "title": "How can CRISPR gene editing be applied to treat genetic disorders and what are the potential therapeutic outcomes?"}, {"id": "sq_3", "label": "What are the limitations of CRISPR technology in t...", "size": 22, "color": {"background": "#ec4899", "border": "#ec4899"}, "shape": "box", "font": {"color": "#ffffff", "size": 13, "face": "Outfit, sans-serif"}, "borderWidth": 2, "shadow": true, "level": 1, "margin": 10, "title": "What are the limitations of CRISPR technology in terms of delivery and targeting, and how do they impact its clinical applications?"}, {"id": "sq_4", "label": "What future directions should research on CRISPR g...", "size": 22, "color": {"background": "#06b6d4", "border": "#06b6d4"}, "shape": "box", "font": {"color": "#ffffff", "size": 13, "face": "Outfit, sans-serif"}, "borderWidth": 2, "shadow": true, "level": 1, "margin": 10, "title": "What future directions should research on CRISPR gene editing take to overcome current challenges and explore new applications?"}, {"id": "paper_0", "label": "A boronic acid\u2013rich dendrimer ...\n(2019) \u26058", "size": 22, "color": {"background": "#10b981", "border": "#10b981"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "A boronic acid\u2013rich dendrimer with robust and unprecedented efficiency for cytosolic protein delivery and CRISPR-Cas9 gene editing\nYear: 2019\nCredibility: 8/10"}, {"id": "paper_1", "label": "Chromatin accessibility and gu...\n(2017) \u26058", "size": 22, "color": {"background": "#10b981", "border": "#10b981"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "Chromatin accessibility and guide sequence secondary structure affect <scp>CRISPR</scp>\u2010Cas9 gene editing efficiency\nYear: 2017\nCredibility: 8/10"}, {"id": "paper_2", "label": "High-efficiency CRISPR/Cas9 mu...\n(2016) \u26056", "size": 18, "color": {"background": "#f59e0b", "border": "#f59e0b"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "High-efficiency CRISPR/Cas9 multiplex gene editing using the glycine tRNA-processing system-based strategy in maize\nYear: 2016\nCredibility: 6/10"}, {"id": "paper_3", "label": "Reduced fire blight susceptibi...\n(2019) \u26058", "size": 22, "color": {"background": "#10b981", "border": "#10b981"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "Reduced fire blight susceptibility in apple cultivars using a high\u2010efficiency CRISPR/Cas9\u2010FLP/FRT\u2010based gene editing system\nYear: 2019\nCredibility: 8/10"}, {"id": "paper_4", "label": "CRISPRedict: The case for simp...\n(2022) \u26056", "size": 18, "color": {"background": "#f59e0b", "border": "#f59e0b"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "CRISPRedict: The case for simple and interpretable efficiency prediction for CRISPR-Cas9 gene editing\nYear: 2022\nCredibility: 6/10"}, {"id": "paper_5", "label": "Latest Developed Strategies to...\n(2020) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "Latest Developed Strategies to Minimize the Off-Target Effects in CRISPR-Cas-Mediated Genome Editing\nYear: 2020\nCredibility: 1/10"}, {"id": "paper_6", "label": "CRISPR/Cas Systems in Genome E...\n(2020) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "CRISPR/Cas Systems in Genome Editing: Methodologies and Tools for sgRNA Design, Off\u2010Target Evaluation, and Strategies to Mitigate Off\u2010Target Effects\nYear: 2020\nCredibility: 1/10"}, {"id": "paper_7", "label": "Cas9 interrogates DNA in discr...\n(2020) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "Cas9 interrogates DNA in discrete steps modulated by mismatches and supercoiling\nYear: 2020\nCredibility: 1/10"}, {"id": "paper_8", "label": "CRISPR Variants for Gene Editi...\n(2023) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "CRISPR Variants for Gene Editing in Plants: Biosafety Risks and Future Directions\nYear: 2023\nCredibility: 1/10"}, {"id": "paper_9", "label": "CRISPR nuclease off-target act...\n(2022) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "CRISPR nuclease off-target activity and mitigation strategies\nYear: 2022\nCredibility: 1/10"}, {"id": "paper_10", "label": "Optimizing CRISPR/Cas9 precisi...\n(2024) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "Optimizing CRISPR/Cas9 precision: Mitigating off-target effects for safe integration with photodynamic and stem cell therapies in cancer treatment\nYear: 2024\nCredibility: 1/10"}, {"id": "paper_11", "label": "The hidden risks of CRISPR/Cas...\n(2025) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "The hidden risks of CRISPR/Cas: structural variations and genome integrity\nYear: 2025\nCredibility: 1/10"}, {"id": "paper_12", "label": "Cas9 Cuts and Consequences; De...\n(2020) \u26051", "size": 10, "color": {"background": "#ef4444", "border": "#ef4444"}, "shape": "box", "font": {"color": "#ffffff", "size": 11, "face": "Outfit, sans-serif", "multi": "html"}, "borderWidth": 1, "shadow": true, "level": 2, "margin": 8, "title": "Cas9 Cuts and Consequences; Detecting, Predicting, and Mitigating CRISPR/Cas9 On\u2010 and Off\u2010Target Damage\nYear: 2020\nCredibility: 1/10"}]);
+var edges = new vis.DataSet([{"from": "root", "to": "sq_0", "color": {"color": "#f59e0b", "opacity": 0.6}, "width": 2}, {"from": "root", "to": "sq_1", "color": {"color": "#10b981", "opacity": 0.6}, "width": 2}, {"from": "root", "to": "sq_2", "color": {"color": "#8b5cf6", "opacity": 0.6}, "width": 2}, {"from": "root", "to": "sq_3", "color": {"color": "#ec4899", "opacity": 0.6}, "width": 2}, {"from": "root", "to": "sq_4", "color": {"color": "#06b6d4", "opacity": 0.6}, "width": 2}, {"from": "sq_0", "to": "paper_0", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_1", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_2", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_2", "to": "paper_3", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_4", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_5", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_6", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_7", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_4", "to": "paper_8", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_9", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_0", "to": "paper_10", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_2", "to": "paper_11", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}, {"from": "sq_4", "to": "paper_12", "color": {"color": "rgba(148,163,184,0.4)"}, "width": 1}]);
+var container = document.getElementById('mindmap');
+var data = { nodes: nodes, edges: edges };
+var options = {
+  layout: {
+    hierarchical: {
+      enabled: true,
+      direction: 'UD',
+      sortMethod: 'directed',
+      levelSeparation: 140,
+      nodeSpacing: 180,
+      treeSpacing: 200
+    }
+  },
+  physics: {
+    enabled: true,
+    hierarchicalRepulsion: {
+      nodeDistance: 180,
+      springLength: 120,
+      springConstant: 0.01
+    },
+    stabilization: { iterations: 100 }
+  },
+  interaction: {
+    hover: true,
+    tooltipDelay: 100,
+    dragNodes: true,
+    zoomView: true
+  },
+  edges: {
+    smooth: { type: 'cubicBezier', forceDirection: 'vertical', roundness: 0.4 }
+  }
+};
+var network = new vis.Network(container, data, options);
+</script>
+</body></html>

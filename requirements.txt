@@ -1,0 +1,6 @@
+streamlit
+groq
+pyvis
+networkx
+python-dotenv
+requests
