@@ -105,7 +105,7 @@ def _normalize_crossref(item: dict) -> dict:
     }
 
 
-def search_openalex(query: str, limit: int = 15) -> list[dict]:
+def search_openalex(query: str, limit: int = 15, timeout: int = 15) -> list[dict]:
     """Search OpenAlex API — free, 100K req/day with email."""
     try:
         url = "https://api.openalex.org/works"
@@ -115,7 +115,7 @@ def search_openalex(query: str, limit: int = 15) -> list[dict]:
             "mailto": OPENALEX_EMAIL,
             "select": "id,title,abstract_inverted_index,publication_year,authorships,primary_location,cited_by_count,doi"
         }
-        response = requests.get(url, params=params, timeout=15)
+        response = requests.get(url, params=params, timeout=timeout)
         response.raise_for_status()
         data = response.json()
         results = data.get("results", [])
@@ -127,7 +127,7 @@ def search_openalex(query: str, limit: int = 15) -> list[dict]:
         return []
 
 
-def search_crossref(query: str, limit: int = 15) -> list[dict]:
+def search_crossref(query: str, limit: int = 15, timeout: int = 15) -> list[dict]:
     """Search CrossRef API — free, polite pool with email header."""
     try:
         url = "https://api.crossref.org/works"
@@ -136,7 +136,7 @@ def search_crossref(query: str, limit: int = 15) -> list[dict]:
             "rows": min(limit, 50),
             "select": "DOI,title,abstract,author,published-print,published-online,created,container-title,is-referenced-by-count"
         }
-        response = requests.get(url, params=params, headers=HEADERS_CROSSREF, timeout=15)
+        response = requests.get(url, params=params, headers=HEADERS_CROSSREF, timeout=timeout)
         response.raise_for_status()
         data = response.json()
         items = data.get("message", {}).get("items", [])
@@ -147,7 +147,7 @@ def search_crossref(query: str, limit: int = 15) -> list[dict]:
         return []
 
 
-def search_semantic_scholar(query: str, limit: int = 15) -> list[dict]:
+def search_semantic_scholar(query: str, limit: int = 15, timeout: int = 15) -> list[dict]:
     """Search Semantic Scholar API — fallback source."""
     try:
         url = "https://api.semanticscholar.org/graph/v1/paper/search"
@@ -156,7 +156,7 @@ def search_semantic_scholar(query: str, limit: int = 15) -> list[dict]:
             "limit": min(limit, 100),
             "fields": "title,abstract,year,authors,citationCount,venue,externalIds,url"
         }
-        response = requests.get(url, params=params, timeout=15)
+        response = requests.get(url, params=params, timeout=timeout)
         if response.status_code == 429:
             print("[SemanticScholar] Rate limited, skipping.")
             return []
@@ -212,11 +212,12 @@ def search_all_sources(query: str, limit: int = 15) -> list[dict]:
 
     all_papers = []
 
-    # Parallel fetch from OpenAlex + CrossRef
+    # Parallel fetch from OpenAlex + CrossRef + Semantic Scholar (all 3)
     with ThreadPoolExecutor(max_workers=3) as executor:
         futures = {
             executor.submit(search_openalex, query, limit): "OpenAlex",
             executor.submit(search_crossref, query, limit): "CrossRef",
+            executor.submit(search_semantic_scholar, query, limit): "SemanticScholar",
         }
         for future in as_completed(futures):
             source = futures[future]
@@ -226,13 +227,6 @@ def search_all_sources(query: str, limit: int = 15) -> list[dict]:
                 all_papers.extend(papers)
             except Exception as e:
                 print(f"[{source}] Failed: {e}")
-
-    # If we got very few papers, try Semantic Scholar as fallback
-    if len(all_papers) < 5:
-        print("[Fallback] Trying Semantic Scholar...")
-        ss_papers = search_semantic_scholar(query, limit)
-        print(f"[SemanticScholar] Fetched {len(ss_papers)} papers")
-        all_papers.extend(ss_papers)
 
     # Deduplicate and sort by citation count
     unique = _deduplicate_papers(all_papers)
@@ -261,6 +255,41 @@ def search_multiple_queries(queries: list[str], papers_per_query: int = 10) -> l
         all_papers.extend(papers)
 
     return _deduplicate_papers(all_papers)
+
+def search_all_sources_fast(query: str, limit: int = 8) -> list[dict]:
+    """
+    Fast mode variant: shorter timeouts (8s), all 3 sources in parallel.
+    Favors speed over completeness.
+    """
+    # Demo mode check
+    demo_topic = get_demo_topic(query)
+    if demo_topic:
+        data = get_demo_data(demo_topic)
+        if data:
+            print(f"[DEMO MODE FAST] Returning {len(data.get('papers', []))} papers for: {demo_topic}")
+            return data.get("papers", [])
+
+    all_papers = []
+    fast_timeout = 8
+
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = {
+            executor.submit(search_openalex, query, limit, fast_timeout): "OpenAlex",
+            executor.submit(search_crossref, query, limit, fast_timeout): "CrossRef",
+            executor.submit(search_semantic_scholar, query, limit, fast_timeout): "SemanticScholar",
+        }
+        for future in as_completed(futures):
+            source = futures[future]
+            try:
+                papers = future.result()
+                print(f"[FAST {source}] Fetched {len(papers)} papers")
+                all_papers.extend(papers)
+            except Exception as e:
+                print(f"[FAST {source}] Failed: {e}")
+
+    unique = _deduplicate_papers(all_papers)
+    unique.sort(key=lambda p: p.get("citation_count", 0), reverse=True)
+    return unique[:limit]
 
 
 if __name__ == "__main__":

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScholAR Pulse - Research Intelligence Map</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#00dbe7",
+                        "secondary-fixed": "#efdbff",
+                        "on-surface": "#e2e2eb",
+                        "background": "#111319",
+                        "surface-container": "#1e1f26",
+                        "on-primary-fixed": "#002022",
+                        "tertiary": "#fff5f4",
+                        "primary-fixed": "#74f5ff",
+                        "on-primary-fixed-variant": "#004f54",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-container-lowest": "#0c0e14",
+                        "surface-container-highest": "#33343b",
+                        "secondary-container": "#7701d0",
+                        "on-secondary": "#480081",
+                        "inverse-surface": "#e2e2eb",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#dcb7ff",
+                        "on-primary-container": "#006a71",
+                        "on-background": "#e2e2eb",
+                        "on-error": "#690005",
+                        "on-tertiary": "#690006",
+                        "tertiary-container": "#ffd0cb",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#282a30",
+                        "primary": "#e1fdff",
+                        "primary-fixed-dim": "#00dbe7",
+                        "surface-variant": "#33343b",
+                        "on-surface-variant": "#b9cacb",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "secondary": "#dcb8ff",
+                        "on-primary": "#00363a",
+                        "surface-container-low": "#191b22",
+                        "inverse-on-surface": "#2e3037",
+                        "on-secondary-fixed": "#2c0051",
+                        "on-tertiary-fixed": "#410002",
+                        "secondary-fixed-dim": "#dcb8ff",
+                        "outline-variant": "#3a494b",
+                        "error": "#ffb4ab",
+                        "surface": "#111319",
+                        "primary-container": "#00f2ff",
+                        "on-secondary-fixed-variant": "#6700b5",
+                        "outline": "#849495",
+                        "surface-dim": "#111319",
+                        "on-tertiary-container": "#c20014",
+                        "on-tertiary-fixed-variant": "#93000c",
+                        "inverse-primary": "#00696f",
+                        "surface-bright": "#373940"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .glass-pane {
+            background: rgba(17, 19, 25, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .ghost-border {
+            border: 0.5px solid rgba(0, 242, 255, 0.15);
+        }
+        .node-glow-primary {
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.4);
+        }
+        .node-glow-secondary {
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.4);
+        }
+        .dot-grid {
+            background-image: radial-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- Global Background Grid -->
+<div class="fixed inset-0 dot-grid pointer-events-none"></div>
+<!-- SideNavBar (Predicted Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/70 backdrop-blur-xl flex flex-col h-full py-6 z-50 font-headline tracking-tight shadow-[0_0_15px_rgba(0,242,255,0.05)]">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-lg">hub</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-cyan-400 dark:text-cyan-300">ScholAR Pulse</h1>
+<p class="text-[10px] text-slate-500 uppercase tracking-[0.2em]">Cinematic Intelligence</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2">
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-150">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-cyan-400 border-r-2 border-cyan-400 bg-cyan-400/5 transition-all duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-150">hub</span>
+<span class="text-sm font-medium">Intelligence Map</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-150">account_tree</span>
+<span class="text-sm font-medium">Thinking Flow</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-150">library_books</span>
+<span class="text-sm font-medium">Paper Library</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 duration-150">assessment</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full py-3 bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-fixed font-bold text-sm rounded-md shadow-lg shadow-cyan-500/10 hover:opacity-90 transition-opacity">
+                New Research
+            </button>
+<div class="pt-4 border-t border-cyan-500/10 space-y-1">
+<a class="flex items-center gap-4 px-4 py-2 text-slate-400 hover:text-cyan-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-2 text-slate-400 hover:text-cyan-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Predicted Component) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-cyan-500/10 bg-slate-950/40 backdrop-blur-md flex justify-between items-center px-8 z-40">
+<div class="flex items-center flex-1">
+<div class="relative w-96 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg group-focus-within:text-cyan-400 transition-colors">search</span>
+<input class="w-full bg-surface-container-low border-b border-outline-variant/30 text-sm font-inter py-2 pl-10 pr-4 focus:outline-none focus:border-primary-container transition-all text-on-surface" placeholder="Explore Knowledge Nodes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-cyan-300 transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-cyan-300 transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined">dynamic_feed</span>
+</button>
+<div class="h-8 w-[1px] bg-cyan-500/10"></div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-label text-slate-400">Dr. Aris V.</span>
+<img alt="Researcher Profile" class="w-8 h-8 rounded-full border border-primary-container/20" data-alt="Close-up portrait of a professional scientist with glasses, soft cinematic office lighting, dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_sXFTHpCTO-gp77cjh7P-TnbNWTIIsefOKmRJ1EPfGHgEZIppjJGOzzboh2v55JhFn9uhixEXzMb_-IRuZzXw_ZOSUEVbGqZILr2oL626N4eH4BQsEUdZ69EMa6W8-sv6JPLoq5U5-aeaz1ldgL5tOL5Mr56zsJV8poSinFik_RvTKqvctmiIn2BUFJqdCQYhaWiDHl7cZ9Ag_TUDunYkaKGK6-X8B2zmtDKOUG7CO5_H0Yz-X2kokHdqnTb4kxpGOIa-WyqAbKI"/>
+</div>
+</div>
+</header>
+<!-- Main Map Canvas -->
+<main class="ml-64 mt-16 h-[calc(100vh-4rem)] relative overflow-hidden bg-surface-container-lowest">
+<!-- Map Overlay Header -->
+<div class="absolute top-8 left-8 z-10 space-y-1">
+<h2 class="text-3xl font-headline font-bold text-on-surface tracking-tighter">Research Intelligence Map</h2>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<p class="text-sm font-label text-slate-400 tracking-wide uppercase opacity-70">Live structure of knowledge and conflict</p>
+</div>
+</div>
+<!-- Graph Visualization Area -->
+<div class="w-full h-full relative cursor-grab active:cursor-grabbing">
+<!-- Simulated Knowledge Graph (SVG for precision) -->
+<svg class="w-full h-full pointer-events-none" viewbox="0 0 1200 800">
+<!-- Contradiction Lines (Dashed Red) -->
+<path class="opacity-60" d="M 400 300 Q 600 200 800 450" fill="none" stroke="#ff3131" stroke-dasharray="8,4" stroke-width="1.5"></path>
+<path class="opacity-60" d="M 800 450 Q 700 600 450 650" fill="none" stroke="#ff3131" stroke-dasharray="8,4" stroke-width="1.5"></path>
+<!-- Standard Edges (Curved Cyan/Purple) -->
+<path d="M 200 400 Q 350 350 400 300" fill="none" stroke="rgba(0, 242, 255, 0.15)" stroke-width="1"></path>
+<path d="M 400 300 Q 450 450 500 500" fill="none" stroke="rgba(138, 43, 226, 0.15)" stroke-width="1"></path>
+<path d="M 600 150 Q 500 250 400 300" fill="none" stroke="rgba(0, 242, 255, 0.15)" stroke-width="1"></path>
+<path d="M 800 450 Q 950 400 1000 300" fill="none" stroke="rgba(0, 242, 255, 0.15)" stroke-width="1"></path>
+</svg>
+<!-- Floating Interactive Nodes -->
+<!-- Node A (Central) -->
+<div class="absolute top-[300px] left-[400px] -translate-x-1/2 -translate-y-1/2 group pointer-events-auto">
+<div class="w-16 h-16 rounded-full bg-surface-container-high ghost-border flex items-center justify-center node-glow-primary relative transition-transform duration-500 hover:scale-110">
+<span class="material-symbols-outlined text-primary-container text-2xl">neurology</span>
+<div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-surface-container-highest px-3 py-1 rounded text-[10px] font-label border border-primary-container/20 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        Neural Plasticity Study (2024)
+                    </div>
+</div>
+</div>
+<!-- Node B (Contradiction Target) -->
+<div class="absolute top-[450px] left-[800px] -translate-x-1/2 -translate-y-1/2 group pointer-events-auto">
+<div class="w-12 h-12 rounded-full bg-surface-container-high ghost-border flex items-center justify-center node-glow-secondary transition-transform duration-500 hover:scale-110">
+<span class="material-symbols-outlined text-secondary text-xl">psychology</span>
+<div class="absolute -bottom-12 left-1/2 -translate-x-1/2 bg-surface-container-highest px-3 py-1 rounded text-[10px] font-label border border-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        Cognitive Load Theory (2022)
+                    </div>
+</div>
+</div>
+<!-- Smaller Cluster Nodes -->
+<div class="absolute top-[150px] left-[600px] w-6 h-6 rounded-full bg-cyan-400/20 border border-cyan-400/50"></div>
+<div class="absolute top-[400px] left-[200px] w-8 h-8 rounded-full bg-cyan-400/10 border border-cyan-400/30"></div>
+<div class="absolute top-[650px] left-[450px] w-10 h-10 rounded-full bg-tertiary-container/10 border border-error/50"></div>
+<div class="absolute top-[500px] left-[500px] w-5 h-5 rounded-full bg-purple-400/10 border border-purple-400/30"></div>
+<div class="absolute top-[300px] left-[1000px] w-8 h-8 rounded-full bg-cyan-400/10 border border-cyan-400/30"></div>
+</div>
+<!-- Legend Pane (Bottom Left) -->
+<div class="absolute bottom-8 left-8 z-10 glass-pane ghost-border p-4 rounded-xl w-64 space-y-4">
+<h4 class="text-xs font-headline font-bold text-primary-container uppercase tracking-widest">Map Legend</h4>
+<div class="space-y-3">
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,242,255,0.5)]"></div>
+<span class="text-[11px] font-label text-slate-300">High Credibility Index</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_rgba(220,184,255,0.5)]"></div>
+<span class="text-[11px] font-label text-slate-300">Exploratory / Emergent</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-0 border-t border-dashed border-error"></div>
+<span class="text-[11px] font-label text-slate-300">Active Contradiction</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded bg-surface-container-highest border border-outline-variant flex items-center justify-center text-[8px] font-bold">12k</div>
+<span class="text-[11px] font-label text-slate-300">Node Size = Citations</span>
+</div>
+</div>
+</div>
+<!-- Controls Side Panel (Right) -->
+<div class="absolute top-8 right-8 z-10 glass-pane ghost-border p-6 rounded-xl w-72 space-y-8 h-[calc(100%-4rem)] overflow-y-auto">
+<section class="space-y-4">
+<h4 class="text-xs font-headline font-bold text-slate-400 uppercase tracking-widest">Time Horizon</h4>
+<div class="space-y-4">
+<div class="flex justify-between text-[10px] font-label text-primary-container">
+<span>2010</span>
+<span>2024</span>
+</div>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary-container" type="range"/>
+<div class="grid grid-cols-4 gap-2">
+<button class="bg-surface-container-high py-1 px-2 text-[10px] rounded border border-outline-variant/20 text-slate-400">1Y</button>
+<button class="bg-primary-container/10 py-1 px-2 text-[10px] rounded border border-primary-container/30 text-primary-container">5Y</button>
+<button class="bg-surface-container-high py-1 px-2 text-[10px] rounded border border-outline-variant/20 text-slate-400">10Y</button>
+<button class="bg-surface-container-high py-1 px-2 text-[10px] rounded border border-outline-variant/20 text-slate-400">MAX</button>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h4 class="text-xs font-headline font-bold text-slate-400 uppercase tracking-widest">Global Filters</h4>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low border border-outline-variant/10">
+<span class="text-xs font-label text-slate-300">Min. Credibility</span>
+<span class="text-xs font-bold text-primary-container">8.4</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low border border-outline-variant/10">
+<span class="text-xs font-label text-slate-300">Highlight Contradictions</span>
+<div class="w-10 h-5 bg-primary-container rounded-full relative">
+<div class="absolute right-1 top-1 w-3 h-3 bg-on-primary-container rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low border border-outline-variant/10">
+<span class="text-xs font-label text-slate-300">Physics Simulation</span>
+<div class="w-10 h-5 bg-slate-700 rounded-full relative">
+<div class="absolute left-1 top-1 w-3 h-3 bg-slate-400 rounded-full"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h4 class="text-xs font-headline font-bold text-slate-400 uppercase tracking-widest">Node Focus</h4>
+<div class="p-4 rounded-lg bg-surface-container-low border border-primary-container/20 space-y-4">
+<div class="flex items-start gap-3">
+<div class="mt-1 w-8 h-8 rounded bg-primary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-sm">science</span>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface">Neural Architecture Search</p>
+<p class="text-[10px] text-slate-500">ID: RS-9942-X</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/10">
+<p class="text-[9px] uppercase tracking-tighter text-slate-500">Credibility</p>
+<p class="text-xs font-bold text-primary-container">98.2%</p>
+</div>
+<div class="p-2 rounded bg-surface-container-lowest border border-outline-variant/10">
+<p class="text-[9px] uppercase tracking-tighter text-slate-500">Links</p>
+<p class="text-xs font-bold text-on-surface">142</p>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-container-highest text-primary-container text-[10px] font-bold rounded uppercase tracking-widest border border-primary-container/30 hover:bg-primary-container/10 transition-colors">
+                        Inspect Node Graph
+                    </button>
+</div>
+</section>
+<!-- Metadata Info -->
+<div class="pt-4 space-y-2 opacity-50">
+<div class="flex justify-between text-[9px] font-label">
+<span>Total Nodes Processed</span>
+<span>1,429,203</span>
+</div>
+<div class="flex justify-between text-[9px] font-label">
+<span>Conflict Resolution Ratio</span>
+<span>14.2%</span>
+</div>
+</div>
+</div>
+<!-- Zoom Controls -->
+<div class="absolute bottom-8 right-8 z-10 flex flex-col gap-2">
+<button class="w-10 h-10 bg-surface-container-high border border-outline-variant/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary-container transition-colors shadow-xl">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="w-10 h-10 bg-surface-container-high border border-outline-variant/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary-container transition-colors shadow-xl">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<button class="w-10 h-10 bg-surface-container-high border border-outline-variant/20 rounded-lg flex items-center justify-center text-slate-400 hover:text-primary-container transition-colors shadow-xl">
+<span class="material-symbols-outlined">center_focus_strong</span>
+</button>
+</div>
+</main>
+</body></html>

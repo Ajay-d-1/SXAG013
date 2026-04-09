@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScholAR Pulse | Literature Intelligence Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#00dbe7",
+                    "secondary-fixed": "#efdbff",
+                    "on-surface": "#e2e2eb",
+                    "background": "#111319",
+                    "surface-container": "#1e1f26",
+                    "on-primary-fixed": "#002022",
+                    "tertiary": "#fff5f4",
+                    "primary-fixed": "#74f5ff",
+                    "on-primary-fixed-variant": "#004f54",
+                    "tertiary-fixed": "#ffdad6",
+                    "surface-container-lowest": "#0c0e14",
+                    "surface-container-highest": "#33343b",
+                    "secondary-container": "#7701d0",
+                    "on-secondary": "#480081",
+                    "inverse-surface": "#e2e2eb",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-container": "#dcb7ff",
+                    "on-primary-container": "#006a71",
+                    "on-background": "#e2e2eb",
+                    "on-error": "#690005",
+                    "on-tertiary": "#690006",
+                    "tertiary-container": "#ffd0cb",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#282a30",
+                    "primary": "#e1fdff",
+                    "primary-fixed-dim": "#00dbe7",
+                    "surface-variant": "#33343b",
+                    "on-surface-variant": "#b9cacb",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "secondary": "#dcb8ff",
+                    "on-primary": "#00363a",
+                    "surface-container-low": "#191b22",
+                    "inverse-on-surface": "#2e3037",
+                    "on-secondary-fixed": "#2c0051",
+                    "on-tertiary-fixed": "#410002",
+                    "secondary-fixed-dim": "#dcb8ff",
+                    "outline-variant": "#3a494b",
+                    "error": "#ffb4ab",
+                    "surface": "#111319",
+                    "primary-container": "#00f2ff",
+                    "on-secondary-fixed-variant": "#6700b5",
+                    "outline": "#849495",
+                    "surface-dim": "#111319",
+                    "on-tertiary-container": "#c20014",
+                    "on-tertiary-fixed-variant": "#93000c",
+                    "inverse-primary": "#00696f",
+                    "surface-bright": "#373940"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(25, 27, 34, 0.7);
+        }
+        .ghost-border {
+            border: 0.5px solid rgba(0, 242, 255, 0.15);
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 10px rgba(0, 242, 255, 0.4);
+        }
+        body {
+            background-color: #111319;
+            background-image: radial-gradient(circle at 50% 50%, #1e1f26 0%, #111319 100%);
+        }
+        .pulse-dot {
+            animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .5; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- Scroll Progress Indicator -->
+<div class="fixed top-0 left-0 w-full h-1 z-50 bg-surface-container-highest">
+<div class="h-full bg-primary-container shadow-[0_0_10px_rgba(0,242,255,0.8)]" style="width: 35%"></div>
+</div>
+<!-- SideNavBar (JSON Context) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/70 backdrop-blur-xl flex flex-col py-6 z-40 font-headline tracking-tight shadow-[0_0_15px_rgba(0,242,255,0.05)]">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-container to-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-cyan-400 dark:text-cyan-300">ScholAR Pulse</h1>
+<p class="text-[10px] uppercase tracking-widest text-slate-500 font-label">Cinematic Intelligence</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 px-4">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="text-sm">Intelligence Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="text-sm">Thinking Flow</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+<span class="text-sm">Paper Library</span>
+</a>
+<!-- Active Tab Mapping: Reports -->
+<a class="flex items-center gap-3 px-4 py-3 text-cyan-400 border-r-2 border-cyan-400 bg-cyan-400/5 transition-all duration-300 rounded-l-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-sm">Reports</span>
+</a>
+</nav>
+<div class="px-6 py-4">
+<button class="w-full py-2 bg-gradient-to-r from-primary-container/80 to-primary-container text-on-primary font-bold rounded-md hover:scale-95 duration-150 shadow-[0_0_20px_rgba(0,242,255,0.2)]">
+                New Research
+            </button>
+</div>
+<div class="mt-auto px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span>
+<span class="text-xs">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 rounded-lg" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+<span class="text-xs">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (JSON Context) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-cyan-500/10 bg-slate-950/40 backdrop-blur-md flex justify-between items-center px-8 z-40 font-inter text-sm">
+<div class="flex items-center gap-4 bg-surface-container-low/50 px-4 py-1.5 rounded-full ghost-border">
+<span class="material-symbols-outlined text-slate-400 text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs w-64 text-on-surface-variant" placeholder="Search insights..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-slate-400 hover:text-cyan-300 transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-cyan-300 transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined" data-icon="dynamic_feed">dynamic_feed</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-cyan-500/10"></div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-label text-slate-400">Dr. Aris Thorne</span>
+<img class="w-8 h-8 rounded-full border border-primary-container/30" data-alt="Professional headshot of a researcher with glasses in a high-tech laboratory setting with blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVGxIdIhd3UaC-osdvGn7iPnbCUHTyADFX_iA4Hub3BLDjRJ14PbqFzhy17HlA3__kb3ETFwM7BYEF8PlfbUStG5QJO5knns6ypp7erYDbFjjIPrFofQmc68y3gbswi1zYB-VyiFbSNKxHq9ZuBhkKsRjESR_9XKBBEQy1FJPV-nFHYUhkxDpoxFVkPiHJQoTz_kl88FFwyrZPY5Pz_f4_TWRFQh3eCx7f5tj-AP6QuidKDQ23CO7Xpmi83l3wbeYhHoWUuWGig9I"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="max-w-5xl mx-auto px-12 py-16">
+<!-- Report Header -->
+<div class="mb-16 border-l-4 border-primary-container pl-8">
+<div class="flex items-center gap-3 mb-4">
+<span class="text-xs font-label tracking-widest text-primary-container bg-primary-container/10 px-2 py-1 rounded">REF: SP-2024-0812</span>
+<span class="text-xs font-label text-slate-500">August 12, 2024</span>
+</div>
+<h1 class="text-6xl font-headline font-bold tracking-tighter text-on-surface mb-4">Literature Intelligence Report</h1>
+<p class="text-xl font-body text-on-surface-variant max-w-2xl leading-relaxed">
+                    A cinematic multi-modal synthesis of Generative AI integration within Quantum Computational Biology.
+                </p>
+<div class="mt-8 flex items-center gap-4">
+<button class="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary-container to-surface-tint text-on-primary font-bold rounded shadow-lg hover:shadow-primary-container/20 transition-all">
+<span class="material-symbols-outlined text-sm">download</span>
+                        Download Report
+                    </button>
+<button class="flex items-center gap-2 px-6 py-2.5 bg-surface-container-high ghost-border text-on-surface-variant hover:text-primary transition-all rounded">
+<span class="material-symbols-outlined text-sm">share</span>
+                        Share Findings
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-6 mb-16">
+<!-- Executive Summary -->
+<section class="col-span-12 glass-panel ghost-border p-8 rounded-xl" id="executive-summary">
+<div class="flex justify-between items-start mb-6">
+<h2 class="text-2xl font-headline font-bold text-primary-container">Executive Summary</h2>
+<span class="text-[10px] font-label text-slate-500 tracking-widest uppercase">Overview</span>
+</div>
+<div class="prose prose-invert max-w-none grid grid-cols-1 md:grid-cols-2 gap-8">
+<p class="text-on-surface-variant leading-relaxed">
+                            Current research trajectories suggest a fundamental shift in drug discovery protocols. By merging LLM-driven hypothesis generation with quantum-accurate molecular simulations, we observe a 40% reduction in lead optimization latency. This report synthesizes 1,200 peer-reviewed sources into a cohesive intelligence map.
+                        </p>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<span class="pulse-dot w-2 h-2 rounded-full bg-primary-container mt-2"></span>
+<span class="text-sm">Foundational breakthroughs in protein folding predictive accuracy.</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="pulse-dot w-2 h-2 rounded-full bg-primary-container mt-2"></span>
+<span class="text-sm">Emergence of autonomous "dark labs" for iterative chemical testing.</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- Field Snapshot & Metrics -->
+<section class="col-span-8 glass-panel ghost-border p-8 rounded-xl relative overflow-hidden" id="field-snapshot">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 rounded-full blur-3xl -mr-32 -mt-32"></div>
+<h2 class="text-2xl font-headline font-bold text-on-surface mb-8">Field Snapshot</h2>
+<div class="grid grid-cols-3 gap-6 mb-8">
+<div class="p-4 bg-surface-container-lowest rounded-lg border-b-2 border-primary-container/40">
+<p class="text-[10px] font-label text-slate-500 mb-1">PUBLICATION VOLUME</p>
+<p class="text-3xl font-headline font-bold text-on-surface">+214%</p>
+<p class="text-[10px] text-primary-container">YoY Growth</p>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border-b-2 border-secondary-container/40">
+<p class="text-[10px] font-label text-slate-500 mb-1">FUNDING INFLUX</p>
+<p class="text-3xl font-headline font-bold text-on-surface">$2.4B</p>
+<p class="text-[10px] text-secondary">Global Venture</p>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border-b-2 border-primary-container/40">
+<p class="text-[10px] font-label text-slate-500 mb-1">PATENT FILINGS</p>
+<p class="text-3xl font-headline font-bold text-on-surface">1,842</p>
+<p class="text-[10px] text-primary-container">Novel Architectures</p>
+</div>
+</div>
+<div class="h-48 w-full bg-surface-container-lowest rounded-lg border border-white/5 flex items-end justify-between px-6 pb-4">
+<!-- Simulated Chart -->
+<div class="w-12 bg-primary-container/20 h-[40%] rounded-t-sm"></div>
+<div class="w-12 bg-primary-container/30 h-[55%] rounded-t-sm"></div>
+<div class="w-12 bg-primary-container/50 h-[45%] rounded-t-sm"></div>
+<div class="w-12 bg-primary-container/70 h-[80%] rounded-t-sm"></div>
+<div class="w-12 bg-primary-container/90 h-[65%] rounded-t-sm"></div>
+<div class="w-12 bg-primary-container h-full rounded-t-sm shadow-[0_0_15px_rgba(0,242,255,0.3)]"></div>
+</div>
+</section>
+<!-- Insights (Blue Box) -->
+<section class="col-span-4 bg-primary-container/10 border border-primary-container/30 p-8 rounded-xl flex flex-col justify-between" id="insights">
+<div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<h2 class="text-lg font-headline font-bold text-primary-container uppercase tracking-widest">Key Insights</h2>
+</div>
+<p class="text-sm text-on-surface leading-relaxed mb-4">
+                            Neural-symbolic models are outperforming pure transformer architectures in reasoning-heavy scientific domains.
+                        </p>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            Expect a consolidation of "AI Bio-Foundries" by Q4 2025.
+                        </p>
+</div>
+<img class="w-full h-32 object-cover rounded mt-6 grayscale hover:grayscale-0 transition-all duration-500" data-alt="Digital representation of complex neural networks glowing in neon blue and white against a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClOKvOmfKXcbtjSTxR2iqIIAiOt5Eqk3DgV1piLlEPXwBM9mJqCRFmZValKeaJGi0ayC64j9Ksof1VlR-vY5WwVf0C4t3TXfLYpF-rh6y2hPb2rvA_8JGQSyHlZheSYA53wRcfbN98CaZeRz_gNL_yUiAHgdpN9QHgHE3BmpgvvBX2R8yQMaI2BO2w8Zx0DroCmDyljxHcz3pnoSGxh82uj4BSZCe-Kh4q5Qfyp7pzphNBNmjnu0_WHRTXhDzMha0HKbzQ_bbJkn0"/>
+</section>
+<!-- Contradictions (Red Box) -->
+<section class="col-span-6 bg-error-container/20 border border-error/30 p-8 rounded-xl" id="contradictions">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h2 class="text-lg font-headline font-bold text-error uppercase tracking-widest">Contradictions</h2>
+</div>
+<ul class="space-y-4">
+<li class="p-4 bg-surface-container-lowest rounded border-l-4 border-error">
+<h4 class="text-sm font-bold text-on-surface mb-1">Model Scaling vs. Logic</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Harvard Study (2023) disputes the 'Scaling Law' effectiveness for logical deduction in enzyme-substrate matching.</p>
+</li>
+<li class="p-4 bg-surface-container-lowest rounded border-l-4 border-error">
+<h4 class="text-sm font-bold text-on-surface mb-1">Data Privacy Paradox</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Conflicting reports on federated learning efficiency vs. raw performance in patient-sensitive research datasets.</p>
+</li>
+</ul>
+</section>
+<!-- Gaps -->
+<section class="col-span-6 glass-panel ghost-border p-8 rounded-xl" id="gaps">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">incomplete_circle</span>
+<h2 class="text-lg font-headline font-bold text-secondary uppercase tracking-widest">Research Gaps</h2>
+</div>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-xs font-label mb-2">
+<span class="text-slate-400">Interpretability in Proteomics</span>
+<span class="text-secondary">CRITICAL</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full">
+<div class="w-[85%] h-full bg-secondary rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-label mb-2">
+<span class="text-slate-400">Cross-domain Data Standards</span>
+<span class="text-slate-500">MODERATE</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full">
+<div class="w-[40%] h-full bg-secondary/50 rounded-full"></div>
+</div>
+</div>
+<p class="text-sm text-on-surface-variant leading-relaxed italic mt-4">
+                            "The absence of verified synthetic control groups in phase-I clinical trials remains the primary bottleneck for AI-validated drug repurposing."
+                        </p>
+</div>
+</section>
+<!-- Opportunities (Green Box) -->
+<section class="col-span-7 bg-emerald-950/20 border border-emerald-500/30 p-8 rounded-xl" id="opportunities">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-emerald-400" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<h2 class="text-lg font-headline font-bold text-emerald-400 uppercase tracking-widest">Market Opportunities</h2>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<span class="text-[10px] font-label text-emerald-500 px-2 py-0.5 bg-emerald-500/10 rounded">HIGH POTENTIAL</span>
+<h4 class="font-bold text-on-surface">Small Molecule Generative Design</h4>
+<p class="text-xs text-on-surface-variant">Estimated $12B TAM by 2028 for specialized biotech firms.</p>
+</div>
+<div class="space-y-2">
+<span class="text-[10px] font-label text-emerald-500 px-2 py-0.5 bg-emerald-500/10 rounded">EMERGING</span>
+<h4 class="font-bold text-on-surface">In-silico Clinical Trials</h4>
+<p class="text-xs text-on-surface-variant">Reducing regulatory friction through AI-generated patient cohorts.</p>
+</div>
+</div>
+</section>
+<!-- Future Directions -->
+<section class="col-span-5 glass-panel ghost-border p-8 rounded-xl flex flex-col justify-between" id="future-directions">
+<div>
+<h2 class="text-xl font-headline font-bold text-on-surface mb-4">Future Directions</h2>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            Convergence toward a "Universal Biological Operating System" (UB-OS). Integrated hardware-software ecosystems will dominate within the next 36 months.
+                        </p>
+</div>
+<div class="mt-6 p-4 bg-surface-container rounded border border-white/5 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">rocket_launch</span>
+</div>
+<div class="text-xs">
+<p class="text-on-surface font-bold">Project 2030</p>
+<p class="text-slate-500">Long-term vision</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-slate-600">arrow_forward</span>
+</div>
+</section>
+</div>
+<!-- Footer Citation -->
+<footer class="pt-16 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="text-left">
+<p class="text-xs font-label text-slate-500 mb-2">GENERATED BY SCHOLAR PULSE AI MODEL 4.2-PRO</p>
+<p class="text-xs text-slate-600">© 2024 ScholAR Research Systems. All intellectual properties reserved.</p>
+</div>
+<div class="flex gap-4">
+<img class="w-20 h-12 object-cover rounded opacity-40 hover:opacity-100 transition-opacity" data-alt="Close-up of a high-resolution data visualization chart showing clusters and connection points in vibrant teal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANGrFkyFS8Uf_8yt5DA1ZS2Fc-mrYhkrhDvUnjwRbOR-t1dhThVMG8y1yEwciJ9DwVRQt-UmdDJhHMOd1X8KJ4ZqDIhEs8P8LSKKfQDiQyt1Oizre_rGKIuKQsBvaBu54FM_xlnlA0A7mC3kIvlbj-dViEKKESeHDkwdgTAoOFX44641_NWPlVK0DMdjXXmVEEXsR7Bl3oB3ekOesONCmpKfnWYheATCypDY-JqMKiak397aMW-xzy15PR_oUzAnrzaUUu_JI051I"/>
+<img class="w-20 h-12 object-cover rounded opacity-40 hover:opacity-100 transition-opacity" data-alt="Macro photography of a computer microchip with complex circuitry patterns and blue lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcsvBqGr0TWAZ6bTUc0NMhlobet6KJHSN5L00n0vnSpDLtN54Avg3SqGoKXHundOiyeDa6maAP72sJIiGb1hKGCiJkAYYjcMkmJ96-dXkuReyYRLfyFXX4f60nrZstI6xr4vxZ4VQxWLSB94m-uipLtEysBlVASNxfrsFnWPe8seb4nT_vJmcK4HNab7ZNlIPP_f-gjyZD2TpJAQK2QHuSw1Hqdo_tcXTw0h0X83eDNBTnD8TBRep9Ahq1FjmmJpSwz__uK7bm3WI"/>
+</div>
+</footer>
+</div>
+</main>
+<!-- Sticky Table of Contents (Contextual Shell) -->
+<div class="fixed right-8 top-32 w-48 hidden xl:block">
+<p class="text-[10px] font-label text-slate-500 tracking-widest uppercase mb-6">Navigating Report</p>
+<ul class="space-y-4 text-xs font-label">
+<li>
+<a class="flex items-center gap-2 text-primary-container hover:text-primary transition-colors group" href="#executive-summary">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container group-hover:scale-125 transition-transform"></span>
+                    Summary
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors group" href="#field-snapshot">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-800 group-hover:bg-primary transition-colors"></span>
+                    Snapshot
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-slate-500 hover:text-error transition-colors group" href="#contradictions">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-800 group-hover:bg-error transition-colors"></span>
+                    Conflicts
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-slate-500 hover:text-secondary transition-colors group" href="#gaps">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-800 group-hover:bg-secondary transition-colors"></span>
+                    Gaps
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-2 text-slate-500 hover:text-primary transition-colors group" href="#future-directions">
+<span class="w-1.5 h-1.5 rounded-full bg-slate-800 group-hover:bg-primary transition-colors"></span>
+                    Future
+                </a>
+</li>
+</ul>
+<div class="mt-12 p-4 bg-surface-container-low rounded-lg ghost-border">
+<p class="text-[10px] font-bold text-on-surface mb-2">INTELLIGENCE SCORE</p>
+<div class="flex items-end gap-1">
+<span class="text-2xl font-headline font-bold text-primary-container">98.4</span>
+<span class="text-[10px] text-slate-500 mb-1.5">/100</span>
+</div>
+<p class="text-[8px] text-slate-600 mt-2 italic leading-tight">High data density &amp; source reliability.</p>
+</div>
+</div>
+</body></html>

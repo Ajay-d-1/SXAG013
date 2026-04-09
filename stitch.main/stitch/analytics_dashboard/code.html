@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScholAR Pulse - Analytics Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#00dbe7",
+                        "secondary-fixed": "#efdbff",
+                        "on-surface": "#e2e2eb",
+                        "background": "#111319",
+                        "surface-container": "#1e1f26",
+                        "on-primary-fixed": "#002022",
+                        "tertiary": "#fff5f4",
+                        "primary-fixed": "#74f5ff",
+                        "on-primary-fixed-variant": "#004f54",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-container-lowest": "#0c0e14",
+                        "surface-container-highest": "#33343b",
+                        "secondary-container": "#7701d0",
+                        "on-secondary": "#480081",
+                        "inverse-surface": "#e2e2eb",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#dcb7ff",
+                        "on-primary-container": "#006a71",
+                        "on-background": "#e2e2eb",
+                        "on-error": "#690005",
+                        "on-tertiary": "#690006",
+                        "tertiary-container": "#ffd0cb",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#282a30",
+                        "primary": "#e1fdff",
+                        "primary-fixed-dim": "#00dbe7",
+                        "surface-variant": "#33343b",
+                        "on-surface-variant": "#b9cacb",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "secondary": "#dcb8ff",
+                        "on-primary": "#00363a",
+                        "surface-container-low": "#191b22",
+                        "inverse-on-surface": "#2e3037",
+                        "on-secondary-fixed": "#2c0051",
+                        "on-tertiary-fixed": "#410002",
+                        "secondary-fixed-dim": "#dcb8ff",
+                        "outline-variant": "#3a494b",
+                        "error": "#ffb4ab",
+                        "surface": "#111319",
+                        "primary-container": "#00f2ff",
+                        "on-secondary-fixed-variant": "#6700b5",
+                        "outline": "#849495",
+                        "surface-dim": "#111319",
+                        "on-tertiary-container": "#c20014",
+                        "on-tertiary-fixed-variant": "#93000c",
+                        "inverse-primary": "#00696f",
+                        "surface-bright": "#373940"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Manrope"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bg-grid-pattern {
+            background-image: radial-gradient(circle, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(25, 27, 34, 0.7);
+        }
+        .neon-border-primary {
+            border: 0.5px solid rgba(0, 242, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.05);
+        }
+        .neon-border-error {
+            border: 0.5px solid rgba(255, 49, 49, 0.2);
+            box-shadow: 0 0 10px rgba(255, 49, 49, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Background Grid -->
+<div class="fixed inset-0 bg-grid-pattern pointer-events-none z-0"></div>
+<!-- SideNavBar Integration -->
+<nav class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/70 backdrop-blur-xl shadow-[0_0_15px_rgba(0,242,255,0.05)] flex flex-col py-6 z-50 font-headline tracking-tight">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shadow-[0_0_15px_rgba(0,242,255,0.4)]">
+<span class="material-symbols-outlined text-on-primary-container text-lg" data-icon="hub">hub</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-cyan-400">ScholAR Pulse</h1>
+<p class="text-[10px] text-slate-500 uppercase tracking-[0.2em]">Cinematic Intelligence</p>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-1">
+<!-- Active State Navigation -->
+<a class="flex items-center gap-4 px-6 py-3 text-cyan-400 border-r-2 border-cyan-400 bg-cyan-400/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+<span class="text-sm font-medium">Intelligence Map</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span class="text-sm font-medium">Thinking Flow</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+<span class="text-sm font-medium">Paper Library</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</div>
+<div class="px-6 mt-auto space-y-6">
+<button class="w-full py-3 rounded-md bg-gradient-to-r from-primary-container to-surface-tint text-on-primary-fixed font-bold text-sm shadow-[0_0_20px_rgba(0,242,255,0.2)] active:scale-95 transition-all">
+                New Research
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-4 py-2 text-slate-400 hover:text-cyan-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="settings">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-4 py-2 text-slate-400 hover:text-cyan-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+<span class="text-xs font-medium">Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- TopNavBar Integration -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-cyan-500/10 bg-slate-950/40 backdrop-blur-md flex justify-between items-center px-8 z-40 font-inter text-sm">
+<div class="flex items-center gap-4 w-96">
+<span class="material-symbols-outlined text-slate-400" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-slate-600 w-full text-sm" placeholder="Explore neural clusters..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-slate-400 hover:text-cyan-300 opacity-80 hover:opacity-100 transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-slate-400 hover:text-cyan-300 opacity-80 hover:opacity-100 transition-all">
+<span class="material-symbols-outlined" data-icon="dynamic_feed">dynamic_feed</span>
+</button>
+<div class="h-8 w-px bg-cyan-500/10 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold text-on-surface">Dr. Aris Vane</p>
+<p class="text-[10px] text-cyan-500">Lead Investigator</p>
+</div>
+<img alt="Researcher Profile" class="w-10 h-10 rounded-full border border-cyan-400/30 object-cover" data-alt="Close-up portrait of a professional man in a tech environment with subtle blue holographic lighting reflections on his face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSB8y1NFI_tmzdruhkKk5-dTKcuL7SYoIbcX1BRbryQRI2l8978mszOttrYVx19tw0SWhrMa5uD4dP2hmz8KLaDN3OZ-8NgCcTKgU7siul_bDFwgk9aFP6i0XL2GZBeHlW_HXZSvEDI_zSnOr8F4A628zCEnJ_Wf6FT1rXxOr39ZZGKEe4Bx_EK8CIT07mSMxXKj6o0biPm40N0ylKkgGHQ7N2P8OrrQg-YLE3aZIlHyIjZUUQCx6ETYQvkpY1VYy_aKN5MCi8blM"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-8 relative z-10">
+<!-- Metrics Row -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+<!-- Papers Analyzed -->
+<div class="glass-panel p-6 rounded-xl neon-border-primary relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-label text-slate-500 uppercase tracking-widest">Dataset Size</span>
+<span class="material-symbols-outlined text-primary-container text-lg" data-icon="description">description</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline font-bold text-on-surface mb-1">12,482</span>
+<span class="text-xs font-label text-cyan-400 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="trending_up">trending_up</span> 
+                        +14% this week
+                    </span>
+</div>
+<div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-primary-container to-transparent w-3/4 group-hover:w-full transition-all duration-700"></div>
+</div>
+<!-- Contradictions -->
+<div class="glass-panel p-6 rounded-xl neon-border-error relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-label text-slate-500 uppercase tracking-widest">Anomalies</span>
+<span class="material-symbols-outlined text-error text-lg" data-icon="priority_high">priority_high</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline font-bold text-on-surface mb-1">142</span>
+<span class="text-xs font-label text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span> 
+                        Conflict Detected
+                    </span>
+</div>
+<div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-error to-transparent w-1/4 group-hover:w-1/2 transition-all duration-700"></div>
+</div>
+<!-- Confidence -->
+<div class="glass-panel p-6 rounded-xl neon-border-primary relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-label text-slate-500 uppercase tracking-widest">AI Consensus</span>
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="verified">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline font-bold text-on-surface mb-1">94.8%</span>
+<span class="text-xs font-label text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="auto_awesome">auto_awesome</span> 
+                        High Precision
+                    </span>
+</div>
+<div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-secondary to-transparent w-full group-hover:opacity-70 transition-all duration-700"></div>
+</div>
+<!-- Credibility -->
+<div class="glass-panel p-6 rounded-xl neon-border-primary relative overflow-hidden group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-label text-slate-500 uppercase tracking-widest">Source Trust</span>
+<span class="material-symbols-outlined text-surface-tint text-lg" data-icon="award_star">award_star</span>
+</div>
+<div class="flex flex-col">
+<span class="text-3xl font-headline font-bold text-on-surface mb-1">A+</span>
+<span class="text-xs font-label text-surface-tint flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span> 
+                        Peer Verified
+                    </span>
+</div>
+<div class="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-surface-tint to-transparent w-[88%] group-hover:w-full transition-all duration-700"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Executive Summary Center -->
+<div class="lg:col-span-8 space-y-8">
+<section class="glass-panel rounded-2xl p-8 neon-border-primary min-h-[400px] relative overflow-hidden">
+<!-- Technical Header Decoration -->
+<div class="absolute top-4 right-6 font-label text-[10px] text-slate-600 tracking-tighter">
+                        REP_ID: 00491-QX-2024
+                    </div>
+<h2 class="text-2xl font-headline font-bold text-on-surface mb-6 flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#00f2ff]"></span>
+                        Executive Summary
+                    </h2>
+<div class="prose prose-invert max-w-none space-y-6">
+<p class="text-slate-300 leading-relaxed font-body text-lg">
+                            Neural network convergence patterns in the last 48 hours suggest a significant shift in <span class="text-primary-container font-bold">Quantum LLM Architecture</span>. Our analysis of over 12,000 papers reveals a surprising consensus on non-transformer based attention mechanisms.
+                        </p>
+<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="bg-surface-container-low/50 p-4 rounded-lg border-l-2 border-primary">
+<h4 class="text-sm font-headline text-cyan-400 mb-2">Primary Catalyst</h4>
+<p class="text-xs text-slate-400">The publication of "Entropy-Driven Synthetic Intelligence" has triggered a cascade of secondary research across 14 separate disciplines.</p>
+</div>
+<div class="bg-surface-container-low/50 p-4 rounded-lg border-l-2 border-secondary">
+<h4 class="text-sm font-headline text-secondary mb-2">Network Hub</h4>
+<p class="text-xs text-slate-400">Researchers in Zurich and Stanford are currently forming the dense cluster of activity, focusing on latency minimization.</p>
+</div>
+</div>
+<div class="mt-8 relative h-48 rounded-xl overflow-hidden border border-cyan-500/10">
+<img alt="Data Flow Visualization" class="w-full h-full object-cover opacity-40" data-alt="Abstract visualization of high-speed data flow with glowing blue and purple particles moving through a dark cosmic network" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPhljcuLcBLpk98J07b9_6iE0QSRPGyy3OrSHFz1dBBcD4jkUp9uTVD0hRsR_-qPUQrhB1NqAsSbNlv1DM0-PZ3mTRYQ_oR5mIKAJAC-MNyVZlcx7qirRCRa1QseyXo376fxmLAwbPyNjmTvqtiREP_gmhGxXM8_hUGxgDdI4LY6bbhwEQqSS1L54k4KoUAz2K9uQpwl9PLOygJRaa6m8rfFSS8zj83VL6qq6ISGlUtrrefjjqdGO24bei3h43kpBiTm3LmnxmEwo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-2">
+<span class="text-[10px] bg-primary-container/20 text-primary-container px-2 py-1 rounded">LIVE STREAM</span>
+<span class="text-[10px] text-slate-400">Global Research Propagation Map</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Insight Highlights -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="glass-panel p-6 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-cyan-500/20">
+<span class="material-symbols-outlined text-yellow-400 mb-4" data-icon="lightbulb">lightbulb</span>
+<h3 class="font-headline font-bold text-on-surface mb-2">Key Insight</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Cross-modal alignment is 3x faster using stochastic grounding than traditional RLHF.</p>
+</div>
+<div class="glass-panel p-6 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-cyan-500/20">
+<span class="material-symbols-outlined text-cyan-400 mb-4" data-icon="bar_chart">bar_chart</span>
+<h3 class="font-headline font-bold text-on-surface mb-2">Field Momentum</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Decentralized compute research has grown 450% YoY in the Asian sector.</p>
+</div>
+<div class="glass-panel p-6 rounded-xl hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-cyan-500/20">
+<span class="material-symbols-outlined text-error mb-4" data-icon="flag">flag</span>
+<h3 class="font-headline font-bold text-on-surface mb-2">Red Flags</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Reproducibility crisis detected in recent large-scale synthetic data experiments.</p>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Meter & Metadata -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Confidence Meter -->
+<section class="glass-panel rounded-2xl p-8 neon-border-primary flex flex-col items-center justify-center text-center">
+<span class="text-[10px] font-label text-slate-500 uppercase tracking-widest mb-8">System Confidence</span>
+<div class="relative w-48 h-48 flex items-center justify-center">
+<!-- SVG Radial Bar -->
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="4"></circle>
+<circle class="text-primary-container shadow-[0_0_15px_#00f2ff]" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552.92" stroke-dashoffset="55" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-headline font-bold text-on-surface">91%</span>
+<span class="text-[10px] text-primary-container font-label uppercase tracking-widest">Optimal</span>
+</div>
+</div>
+<p class="text-xs text-slate-400 mt-8 leading-relaxed italic">
+                        "High stability in pattern recognition. Intelligence clusters are well-formed and verified across 3 regional nodes."
+                    </p>
+</section>
+<!-- Trending Topics / Quick Links -->
+<section class="glass-panel rounded-2xl p-6">
+<h3 class="font-headline font-bold text-on-surface text-sm mb-4">Propagation Clusters</h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-cyan-400"></div>
+<span class="text-xs text-on-surface font-medium">Neural Bio-ethics</span>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm group-hover:text-primary-container transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+<span class="text-xs text-on-surface font-medium">Sparse Transformers</span>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm group-hover:text-primary-container transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-surface-tint"></div>
+<span class="text-xs text-on-surface font-medium">Edge Reasoning</span>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm group-hover:text-primary-container transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="text-xs text-on-surface font-medium">Synthetic Datasets</span>
+</div>
+<span class="material-symbols-outlined text-slate-600 text-sm group-hover:text-primary-container transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+<button class="w-full mt-6 text-[10px] uppercase tracking-widest text-primary-container font-bold border border-primary-container/20 py-2 rounded-lg hover:bg-primary-container/5 transition-all">
+                        View All Clusters
+                    </button>
+</section>
+<!-- Activity Pulse -->
+<section class="glass-panel rounded-2xl p-6 relative overflow-hidden">
+<div class="flex items-center gap-2 mb-4">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+</span>
+<span class="text-[10px] font-label text-slate-400 uppercase tracking-widest">Real-time Pulse</span>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="text-[10px] text-slate-600 font-mono pt-1">12:44</div>
+<div class="text-xs text-slate-300">New arXiv submission matched "Quantum" cluster criteria.</div>
+</div>
+<div class="flex gap-4">
+<div class="text-[10px] text-slate-600 font-mono pt-1">12:41</div>
+<div class="text-xs text-slate-300">Conflict resolved in "LLM-Scaling" research node.</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Contextual FAB - Restricted to Dashboard -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-gradient-to-tr from-primary-container to-secondary-container rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(0,242,255,0.4)] hover:scale-110 active:scale-90 transition-all z-50 group">
+<span class="material-symbols-outlined text-on-primary-fixed text-2xl group-hover:rotate-90 transition-transform duration-300" data-icon="add">add</span>
+</button>
+</body></html>

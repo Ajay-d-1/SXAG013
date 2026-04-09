@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ScholAR Pulse - Cinematic Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#00dbe7",
+                    "secondary-fixed": "#efdbff",
+                    "on-surface": "#e2e2eb",
+                    "background": "#111319",
+                    "surface-container": "#1e1f26",
+                    "on-primary-fixed": "#002022",
+                    "tertiary": "#fff5f4",
+                    "primary-fixed": "#74f5ff",
+                    "on-primary-fixed-variant": "#004f54",
+                    "tertiary-fixed": "#ffdad6",
+                    "surface-container-lowest": "#0c0e14",
+                    "surface-container-highest": "#33343b",
+                    "secondary-container": "#7701d0",
+                    "on-secondary": "#480081",
+                    "inverse-surface": "#e2e2eb",
+                    "on-error-container": "#ffdad6",
+                    "on-secondary-container": "#dcb7ff",
+                    "on-primary-container": "#006a71",
+                    "on-background": "#e2e2eb",
+                    "on-error": "#690005",
+                    "on-tertiary": "#690006",
+                    "tertiary-container": "#ffd0cb",
+                    "error-container": "#93000a",
+                    "surface-container-high": "#282a30",
+                    "primary": "#e1fdff",
+                    "primary-fixed-dim": "#00dbe7",
+                    "surface-variant": "#33343b",
+                    "on-surface-variant": "#b9cacb",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "secondary": "#dcb8ff",
+                    "on-primary": "#00363a",
+                    "surface-container-low": "#191b22",
+                    "inverse-on-surface": "#2e3037",
+                    "on-secondary-fixed": "#2c0051",
+                    "on-tertiary-fixed": "#410002",
+                    "secondary-fixed-dim": "#dcb8ff",
+                    "outline-variant": "#3a494b",
+                    "error": "#ffb4ab",
+                    "surface": "#111319",
+                    "primary-container": "#00f2ff",
+                    "on-secondary-fixed-variant": "#6700b5",
+                    "outline": "#849495",
+                    "surface-dim": "#111319",
+                    "on-tertiary-container": "#c20014",
+                    "on-tertiary-fixed-variant": "#93000c",
+                    "inverse-primary": "#00696f",
+                    "surface-bright": "#373940"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-pane {
+            background: rgba(17, 19, 25, 0.7);
+            backdrop-filter: blur(20px);
+        }
+        .ghost-border {
+            border: 0.5px solid rgba(0, 242, 255, 0.15);
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+        }
+        .dot-grid {
+            background-image: radial-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .terminal-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r border-cyan-500/10 bg-slate-950/70 backdrop-blur-xl flex flex-col h-full py-6 z-50 font-headline tracking-tight shadow-[0_0_15px_rgba(0,242,255,0.05)]">
+<div class="px-6 mb-10">
+<div class="text-xl font-bold tracking-tighter text-cyan-400 dark:text-cyan-300">ScholAR Pulse</div>
+<div class="text-[10px] uppercase tracking-[0.2em] text-slate-500 mt-1">Cinematic Intelligence</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 text-cyan-400 border-r-2 border-cyan-400 bg-cyan-400/5 transition-all duration-300" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="dashboard">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="hub">hub</span>
+<span class="text-sm font-medium">Intelligence Map</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_tree">account_tree</span>
+<span class="text-sm font-medium">Thinking Flow</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="library_books">library_books</span>
+<span class="text-sm font-medium">Paper Library</span>
+</a>
+<a class="flex items-center px-6 py-3 text-slate-400 hover:text-cyan-200 hover:bg-white/5 transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="assessment">assessment</span>
+<span class="text-sm font-medium">Reports</span>
+</a>
+</nav>
+<div class="px-6 mt-auto space-y-4">
+<button class="w-full py-2 bg-primary-container text-on-primary-container font-bold text-sm rounded-md shadow-lg shadow-primary-container/20 flex items-center justify-center gap-2 hover:scale-95 duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                New Research
+            </button>
+<div class="pt-4 border-t border-cyan-500/10 space-y-1">
+<a class="flex items-center py-2 text-slate-400 hover:text-cyan-200 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-xl" data-icon="settings">settings</span>
+<span class="text-xs font-medium">Settings</span>
+</a>
+<a class="flex items-center py-2 text-slate-400 hover:text-cyan-200 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-xl" data-icon="help_outline">help_outline</span>
+<span class="text-xs font-medium">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 border-b border-cyan-500/10 bg-slate-950/40 backdrop-blur-md flex justify-between items-center px-8 z-40 font-inter text-sm">
+<div class="flex items-center bg-surface-container-low rounded-full px-4 py-1.5 ghost-border">
+<span class="material-symbols-outlined text-slate-400 mr-2 text-lg" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs text-on-surface w-64 placeholder:text-slate-600" placeholder="Quick find research..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-slate-400">
+<button class="material-symbols-outlined opacity-80 hover:opacity-100 transition-colors" data-icon="notifications">notifications</button>
+<button class="material-symbols-outlined opacity-80 hover:opacity-100 transition-colors" data-icon="dynamic_feed">dynamic_feed</button>
+</div>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-cyan-500/30">
+<img alt="Researcher Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man with glasses in a dark tech-focused environment with subtle blue backlighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvrh0HclBwC1ZAU3vEhjubWSt49GuDmdUwTUifVG89kge8Der16FTClERuy6mQSqJPLSmjj-uCDSh8KXiMq9AaFkvyo3kES15N5Y9SxchnGgEsITNK1CyCAfowaHoKqLtREuwuWwOROVm9ci3ufQlbDSTgE36mJ04ARPMUsa0nYle0L5byvEfcdEhHlgCzpi9V9WLH_LcJ_bFXm6IvJw40e8aVsgBD3m-GkHKipoO8Tf9dQ__8Wd6ilWTDpvBsCcQEsoGISdxKVyg"/>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-16 min-h-screen dot-grid relative">
+<!-- Hero Background Visuals -->
+<div class="absolute inset-0 overflow-hidden pointer-events-none">
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container/10 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary-container/10 blur-[120px] rounded-full"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-20">
+<svg class="w-full h-auto" height="600" viewbox="0 0 800 600" width="800">
+<circle cx="400" cy="300" fill="#00f2ff" r="2"></circle>
+<circle cx="200" cy="150" fill="#00f2ff" r="2"></circle>
+<circle cx="600" cy="150" fill="#00f2ff" r="2"></circle>
+<circle cx="200" cy="450" fill="#00f2ff" r="2"></circle>
+<circle cx="600" cy="450" fill="#00f2ff" r="2"></circle>
+<line stroke="#00f2ff" stroke-dasharray="4 4" stroke-width="0.5" x1="400" x2="200" y1="300" y2="150"></line>
+<line stroke="#00f2ff" stroke-dasharray="4 4" stroke-width="0.5" x1="400" x2="600" y1="300" y2="150"></line>
+<line stroke="#00f2ff" stroke-dasharray="4 4" stroke-width="0.5" x1="400" x2="200" y1="300" y2="450"></line>
+<line stroke="#00f2ff" stroke-dasharray="4 4" stroke-width="0.5" x1="400" x2="600" y1="300" y2="450"></line>
+</svg>
+</div>
+</div>
+<div class="relative z-10 px-12 py-20 max-w-5xl mx-auto">
+<!-- Header Section -->
+<section class="text-center mb-16">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/20 text-cyan-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+<span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                    Autonomous Research Engine v4.0
+                </div>
+<h1 class="text-6xl font-headline font-bold tracking-tighter text-on-surface mb-6 leading-none">
+                    From Papers to <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-primary-container">Intelligence</span>
+</h1>
+<p class="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                    Not just search. Automated research thinking that bridges the gap between raw data and breakthrough insights.
+                </p>
+</section>
+<!-- Terminal Input Section -->
+<section class="max-w-3xl mx-auto mb-12">
+<div class="glass-pane ghost-border rounded-xl p-1 p-0.5 shadow-2xl shadow-cyan-400/5 group focus-within:shadow-cyan-400/10 transition-all">
+<div class="bg-surface-container-lowest rounded-[10px] p-6 relative">
+<label class="block text-[10px] font-label font-bold text-cyan-500 uppercase tracking-widest mb-3">Enter Research Topic</label>
+<div class="flex items-center gap-4">
+<span class="text-cyan-400 font-headline text-2xl font-bold opacity-50">&gt;</span>
+<div class="flex-1 text-2xl font-headline text-on-surface terminal-cursor">
+                                Quantifying dark matter influence on galaxy rotation...
+                            </div>
+</div>
+<div class="absolute right-4 bottom-4 flex items-center gap-2">
+<span class="text-[10px] text-slate-600 font-mono">SECURE NODE // 89.2.1.0</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 mt-8">
+<button class="flex-1 group relative overflow-hidden rounded-md p-px bg-gradient-to-r from-orange-500 to-red-600">
+<div class="bg-surface-container-low h-full w-full rounded-[3px] py-4 px-6 flex items-center justify-center gap-3 transition-colors group-hover:bg-transparent">
+<span class="material-symbols-outlined text-orange-400 group-hover:text-white transition-colors" data-icon="bolt">bolt</span>
+<span class="font-headline font-bold text-on-surface tracking-tight">Fast Mode</span>
+</div>
+</button>
+<button class="flex-1 group relative overflow-hidden rounded-md p-px bg-gradient-to-r from-cyan-500 to-secondary-container">
+<div class="bg-surface-container-low h-full w-full rounded-[3px] py-4 px-6 flex items-center justify-center gap-3 transition-colors group-hover:bg-transparent">
+<span class="material-symbols-outlined text-cyan-400 group-hover:text-white transition-colors" data-icon="biotech">biotech</span>
+<span class="font-headline font-bold text-on-surface tracking-tight">Deep Mode</span>
+</div>
+</button>
+</div>
+</section>
+<!-- "How it works" Section -->
+<section class="mt-32">
+<div class="flex items-end justify-between mb-12">
+<div>
+<h2 class="text-3xl font-headline font-bold tracking-tight mb-2">The Pulse Architecture</h2>
+<p class="text-slate-500 text-sm">Four autonomous agents working in synchronization.</p>
+</div>
+<div class="h-px flex-1 mx-8 bg-gradient-to-r from-cyan-500/30 to-transparent mb-4"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Planner -->
+<div class="glass-pane ghost-border p-6 rounded-lg hover:bg-cyan-400/[0.03] transition-all duration-300 group">
+<div class="w-12 h-12 rounded-md bg-cyan-400/10 flex items-center justify-center mb-6 group-hover:scale-110 duration-300">
+<span class="material-symbols-outlined text-cyan-400" data-icon="route">route</span>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Planner</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Orchestrates research paths and optimizes the inquiry tree for maximum depth.</p>
+<div class="mt-6 flex items-center gap-2">
+<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-cyan-400 w-3/4"></div>
+</div>
+</div>
+</div>
+<!-- Skeptic -->
+<div class="glass-pane ghost-border p-6 rounded-lg hover:bg-red-400/[0.03] transition-all duration-300 group">
+<div class="w-12 h-12 rounded-md bg-red-400/10 flex items-center justify-center mb-6 group-hover:scale-110 duration-300">
+<span class="material-symbols-outlined text-red-400" data-icon="rule">rule</span>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Skeptic</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Identifies contradictions and challenges paper methodology with adversarial AI.</p>
+<div class="mt-6 flex items-center gap-2">
+<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-red-400 w-1/2"></div>
+</div>
+</div>
+</div>
+<!-- Cartographer -->
+<div class="glass-pane ghost-border p-6 rounded-lg hover:bg-purple-400/[0.03] transition-all duration-300 group">
+<div class="w-12 h-12 rounded-md bg-purple-400/10 flex items-center justify-center mb-6 group-hover:scale-110 duration-300">
+<span class="material-symbols-outlined text-purple-400" data-icon="map">map</span>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Cartographer</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Maps the semantic relationships between disparate fields to find novel connections.</p>
+<div class="mt-6 flex items-center gap-2">
+<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-purple-400 w-2/3"></div>
+</div>
+</div>
+</div>
+<!-- Archivist -->
+<div class="glass-pane ghost-border p-6 rounded-lg hover:bg-green-400/[0.03] transition-all duration-300 group">
+<div class="w-12 h-12 rounded-md bg-green-400/10 flex items-center justify-center mb-6 group-hover:scale-110 duration-300">
+<span class="material-symbols-outlined text-green-400" data-icon="folder_zip">folder_zip</span>
+</div>
+<h3 class="text-lg font-headline font-bold mb-2">Archivist</h3>
+<p class="text-xs text-slate-400 leading-relaxed">Synthesizes and organizes millions of tokens into structured, cite-ready libraries.</p>
+<div class="mt-6 flex items-center gap-2">
+<div class="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+<div class="h-full bg-green-400 w-full"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Featured Insight (Bento Element) -->
+<section class="mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 glass-pane ghost-border rounded-xl overflow-hidden flex flex-col md:flex-row">
+<div class="md:w-2/5 p-8 flex flex-col justify-center">
+<span class="text-[10px] font-label font-bold text-cyan-400 tracking-widest mb-2 uppercase">Real-time Pulse</span>
+<h4 class="text-2xl font-headline font-bold mb-4 leading-tight">Semantic Cluster Mapping</h4>
+<p class="text-sm text-slate-400 mb-6">Visualize how your current research topic connects to quantum physics, social economics, and neural biology in one unified map.</p>
+<button class="text-cyan-400 text-sm font-bold flex items-center gap-2 hover:translate-x-2 transition-transform">
+                            View Live Map <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="md:w-3/5 bg-slate-900/50 relative overflow-hidden group">
+<img alt="AI Visualization Map" class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity" data-alt="Abstract 3D digital representation of a neural network with glowing cyan nodes and intricate light filaments on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBox9uHtKMoccn2QA0HS8StSH12nfe8GTkbS3w6QtYPin3kRwrjO9dNMQBJCN8GFcuBIWzgGHpDUMLWov_u20SO0pY_gqco1ovWNr5Bmgb62pquOkHQpuPoCdDekviZQLwOlho41Nvj4f8ID73XGq5LNwdrHRMSq1gK4vhLCgW247DTnEf5qzLxfeJDo1LmxxqcHSPipZREdjxdxLA-_H_Fr5jrIbTPKcNtsKJSC0wImi_w771XLHeMSF01h0hWA7VdbxggLZGzL1o"/>
+<div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent"></div>
+</div>
+</div>
+<div class="glass-pane ghost-border rounded-xl p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-cyan-400" data-icon="verified" data-weight="fill">verified</span>
+<span class="text-[10px] font-bold tracking-widest uppercase">Validated Intelligence</span>
+</div>
+<p class="text-3xl font-headline font-bold tracking-tighter text-on-surface">99.8%</p>
+<p class="text-sm text-slate-500">Citation accuracy vs standard LLM research prompts.</p>
+</div>
+<div class="mt-8 pt-6 border-t border-cyan-500/10">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-background" data-alt="Close-up of a smiling male researcher portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAANd8WY4IVk6_IIsBJS9jeRL4HGuwvUBjtGHg7JYTubeq9rOw9MKndot1cor6un420W873tR19vTpv2LDBdCuCMPiJtRZGxyhdkr8TXsFDmI1g86LXRy_yGvHaxEamyNPvAQRTfAO8x7F122PJ2DVhbqm88L3SoZPDKVfbZW_O3fvdHbEo-NZkdw92ykz9rJez09aZyS9GtqO9FwFhnTYOuHDhUNRmIhOrMCocznj732pXDSZbVzWZwg0gtbhqNt3kUXFbPO36JNA"/>
+<img class="w-8 h-8 rounded-full border-2 border-background" data-alt="Close-up of a smiling female researcher portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfFJiBF3R2-OXG_EcD2uiwrjmMnhhtT8k2nkrhZCi7rLuyVicqB43Eh20JxZCvwCrGxzge4GpdtOhjk4a2mwdsvmISVPJ2AVipRPo5yHEpiB3XjQIOMNP6eRodlJTyuhSh3F_yW1Vr4GIQu-5Il02LjlEYFz2uFzUzjLHpNG1N-QUVCv_oD-HzfHXzsgaJDbVfuEKrtjrZmcTXOAMfKKy5Id5U1ESVIG0BAhPfVX5WFMx_HjycbDRkIpmWbzb7tbCTDGe4nokixlQ"/>
+<img class="w-8 h-8 rounded-full border-2 border-background" data-alt="Close-up of a smiling male researcher portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD57syKHPcszWyXxsERT5VJW_zEOTwfM0xil0qF_xqlANb3WZyAvWuuJOZF4mxh0xBadqIF9ozbQxZXnhiIo15cAh8lDgVJ5y5rNtytVpy_ISFQ5NrfO8VPWUeZ7juZT7YIumCe2--5slVoZERcBTLR8jh3TWzGmWCuAc9arNT_n9E7ZOXge7aQFmonn-UIpp5FeZZz40douvMbDYoYJLA4rjOcGx788KFKFnc4Rw4dmylqG-r5w1c_WD9SvALcvk5VF1iKVwf6Sis"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border-2 border-background flex items-center justify-center text-[10px] font-bold text-cyan-400">+12k</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-24 py-12 px-12 border-t border-cyan-500/5 bg-slate-950/20">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="flex items-center gap-4">
+<div class="text-lg font-bold tracking-tighter text-cyan-400">ScholAR Pulse</div>
+<span class="h-4 w-px bg-slate-800"></span>
+<span class="text-xs text-slate-500 font-label">© 2024 Cinematic Research Systems</span>
+</div>
+<div class="flex items-center gap-8 text-xs font-label text-slate-400">
+<a class="hover:text-cyan-400 transition-colors" href="#">Privacy Protocol</a>
+<a class="hover:text-cyan-400 transition-colors" href="#">Neural Terms</a>
+<a class="hover:text-cyan-400 transition-colors" href="#">API Access</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-8 h-8 rounded-md bg-slate-900 border border-slate-800 flex items-center justify-center hover:border-cyan-500/50 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="share">share</span>
+</button>
+<button class="w-8 h-8 rounded-md bg-slate-900 border border-slate-800 flex items-center justify-center hover:border-cyan-500/50 transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="language">language</span>
+</button>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

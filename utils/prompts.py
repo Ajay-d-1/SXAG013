@@ -33,7 +33,13 @@ Return ONLY valid JSON in this exact format, no markdown, no explanation, no bac
 
 Scoring guide:
 - reproducibility_score (0-10): 10 = code+data available, 5 = partial, 0 = nothing shared
-- credibility_score (0-10): based on sample size, dataset quality, claim appropriateness
+- credibility_score must be an integer 0-10, calculated using this exact weighted formula:
+  * Sample size quality (30%): 10=large and representative, 5=moderate, 0=none or not mentioned
+  * Dataset type (25%): real=10, mixed=6, synthetic=3, not mentioned=1
+  * Reproducibility (25%): code+data available=10, partial=5, nothing=0
+  * Claim vs evidence alignment (20%): appropriate=10, conservative=8, overclaimed=3
+  Multiply each by its weight, sum them, round to nearest integer.
+  Never return a decimal. Never return None.
 - relevance_score (0-10): how relevant this paper is to the research topic being investigated
 - influence_type: foundational = seminal/highly cited base paper, extension = builds on prior work, contradiction = challenges existing findings, application = applies method to new domain, survey = reviews existing literature
 - red_flags: issues like small sample, synthetic data tested on real world, no validation set, overclaimed generalization

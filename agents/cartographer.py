@@ -371,6 +371,65 @@ var network = new vis.Network(container, data, options);
 </script>
 </body></html>"""
 
+    def generate_graph_insights(self, papers, critiques, contradictions):
+        """Generate an insight summary for the knowledge graph."""
+        try:
+            # Top papers: sort by credibility_score descending, take top 5
+            paired = list(zip(papers, critiques))
+            paired.sort(key=lambda x: self._safe_score(x[1].get("credibility_score", 0)),
+                        reverse=True)
+            top_papers = [
+                {
+                    "title": p.get("title", "Untitled"),
+                    "year": p.get("year", "N/A"),
+                    "credibility": self._safe_score(c.get("credibility_score", 0))
+                }
+                for p, c in paired[:5]
+            ]
+
+            # Cluster detection: extract frequent keywords from titles
+            from collections import Counter
+            import re
+            all_words = []
+            for p in papers:
+                words = re.findall(r'\b[a-zA-Z]{5,}\b', p.get("title", "").lower())
+                all_words.extend(words)
+            stopwords = {"using", "based", "study", "paper", "method",
+                         "approach", "learning", "research", "model", "deep"}
+            word_freq = Counter(w for w in all_words if w not in stopwords)
+            clusters = [w for w, _ in word_freq.most_common(5)]
+
+            # Narrative
+            avg_cred = round(
+                sum(self._safe_score(c.get("credibility_score", 0)) for c in critiques)
+                / max(len(critiques), 1), 1
+            )
+            narrative = (
+                f"This field shows {len(papers)} active papers with an average "
+                f"credibility of {avg_cred}/10. "
+                f"{len(contradictions)} contradictions suggest active debate. "
+                f"Key research clusters: {', '.join(clusters[:3]) if clusters else 'N/A'}."
+            )
+
+            return {
+                "top_papers": top_papers,
+                "clusters": clusters,
+                "contradiction_count": len(contradictions),
+                "avg_credibility": avg_cred,
+                "narrative": narrative,
+                "total_papers": len(papers)
+            }
+        except Exception as e:
+            print(f"[CARTOGRAPHER] Graph insights error: {e}")
+            return {
+                "top_papers": [],
+                "clusters": [],
+                "contradiction_count": 0,
+                "avg_credibility": 0,
+                "narrative": "Unable to generate graph insights.",
+                "total_papers": len(papers) if papers else 0
+            }
+
 
 if __name__ == "__main__":
     agent = CartographerAgent()
