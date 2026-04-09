@@ -3,20 +3,22 @@ from config import GROQ_API_KEY, MODEL_NAME
 from utils.prompts import PLANNER_PROMPT
 from demo_data import get_demo_topic, get_demo_data
 import json
+import streamlit as st
 
 
 class PlannerAgent:
     def __init__(self):
         if not GROQ_API_KEY:
-            raise ValueError("❌ GROQ_API_KEY is missing. Check your .env or Streamlit secrets.")
-        
-        self.client = Groq(api_key=GROQ_API_KEY)
+            st.error("❌ GROQ_API_KEY is missing. Please check Streamlit Secrets.")
+            self.client = None
+        else:
+            self.client = Groq(api_key=GROQ_API_KEY)
 
     def plan(self, topic: str) -> dict:
         # ---- DEMO MODE CHECK ----
         demo_key = get_demo_topic(topic)
         if demo_key:
-            print(f"[DEMO MODE] Using pre-loaded plan for: {demo_key}")
+            st.info(f"[DEMO MODE] Using pre-loaded plan for: {demo_key}")
             data = get_demo_data(demo_key)
             if data:
                 return {
@@ -24,6 +26,10 @@ class PlannerAgent:
                     "search_queries": [demo_key],
                     "rationale": "Demo mode: using pre-loaded research questions"
                 }
+
+        # ---- IF API NOT AVAILABLE ----
+        if not self.client:
+            return self._fallback(topic, reason="API key missing")
 
         # ---- REAL API CALL ----
         try:
@@ -45,26 +51,28 @@ class PlannerAgent:
             return json.loads(text)
 
         except Exception as e:
-            print(f"⚠️ Planner error: {e}")
+            st.warning(f"⚠️ Planner API error: {e}")
+            return self._fallback(topic, reason="API error")
 
-            # ---- FALLBACK SAFE RESPONSE ----
-            return {
-                "sub_questions": [
-                    f"What methods are used in {topic}?",
-                    f"What datasets exist for {topic}?",
-                    f"What are the main challenges in {topic}?",
-                    f"What are the most impactful recent advances in {topic}?",
-                    f"What practical applications exist for {topic}?"
-                ],
-                "search_queries": [
-                    topic,
-                    f"{topic} methods",
-                    f"{topic} challenges",
-                    f"{topic} recent advances 2024",
-                    f"{topic} applications"
-                ],
-                "rationale": "Fallback due to API error"
-            }
+    # ---- FALLBACK FUNCTION ----
+    def _fallback(self, topic, reason="Fallback"):
+        return {
+            "sub_questions": [
+                f"What methods are used in {topic}?",
+                f"What datasets exist for {topic}?",
+                f"What are the main challenges in {topic}?",
+                f"What are the most impactful recent advances in {topic}?",
+                f"What practical applications exist for {topic}?"
+            ],
+            "search_queries": [
+                topic,
+                f"{topic} methods",
+                f"{topic} challenges",
+                f"{topic} recent advances 2024",
+                f"{topic} applications"
+            ],
+            "rationale": f"{reason}: using safe fallback"
+        }
 
 
 # ---- LOCAL TEST ----

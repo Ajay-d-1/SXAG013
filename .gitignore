@@ -1,1 +1,28 @@
+# ---- ENV FILES ----
 .env
+
+# ---- PYTHON CACHE ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ---- DATABASE FILES ----
+*.db
+*.sqlite3
+
+# ---- VIRTUAL ENV ----
+venv/
+env/
+.venv/
+
+# ---- STREAMLIT SECRETS (LOCAL) ----
+.streamlit/secrets.toml
+
+# ---- OS FILES ----
+.DS_Store
+Thumbs.db
+
+# ---- IDE FILES ----
+.vscode/
+.idea/
